@@ -1,3 +1,7 @@
 "use strict"
 
-console.log("os scripts js serão consumidos aqui")
+const API_URL = "https://base-back-dwpz.onrender.com";
+
+
+
+

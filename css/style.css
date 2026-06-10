@@ -1,0 +1,120 @@
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #eef4ff, #f8fbff);
+    color: #14213d;
+}
+
+main {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 2rem 1rem 3rem;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+.container-form {
+    background: white;
+    padding: 2rem;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(20, 33, 61, 0.08);
+}
+
+h1 {
+    margin-bottom: 1.5rem;
+}
+
+.formulario {
+    display: grid;
+    gap: 1rem;
+}
+
+.campo {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    font-weight: 600;
+}
+
+.campo input,
+.campo select {
+    padding: 0.75rem;
+    border: 1px solid #d0d9e6;
+    border-radius: 10px;
+    font-size: 1rem;
+}
+#container-button {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+}
+.botao-submit {
+    border-radius: 10px;
+    border: none;
+    background: #2563eb;
+    color: white;
+    width: 300px;
+    padding: 15px;
+    cursor: pointer;
+    font-weight: 700;
+    transition: transform .2s;
+}
+.botao-submit:hover {
+    transform: scale(1.1);
+}
+h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+.template-produto {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.card-produto {
+    background: white;
+    padding: 2rem;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(20, 33, 61, 0.08);
+    width: 400px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.img-card {
+    border-radius: 10px;
+}
+
+.layout-botoes {
+    display: flex;
+    gap: 20px;
+    width: 100%;
+    justify-content: center;
+}
+.style-button {
+    border-radius: 10px;
+    border: none;
+    background: #2563eb;
+    color: white;
+    padding: 5px;
+    cursor: pointer;
+    font-weight: 700;
+    width: 150px;
+    height: 45px;
+    transition: transform .2s;
+}
+
+.style-button:hover {
+    transform: scale(1.1);
+}
