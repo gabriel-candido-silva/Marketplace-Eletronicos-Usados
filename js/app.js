@@ -1,7 +1,4 @@
-"use strict"
+import { exibirAnunciados } from "./api.js";
 
-const API_URL = "https://base-back-dwpz.onrender.com";
-
-
-
+console.log(exibirAnunciados)
 
