@@ -4,7 +4,7 @@ const BASE_URL = "https://base-back-dwpz.onrender.com";
 
 
 export async function getAnunciados() {
-  const response = await fetch(`${BASE_URL}/produtos?ativo=true`);
+  const response = await fetch(`${BASE_URL}/produtos`);
   if (!response.ok) {
     throw new Error("Erro ao buscar anunciados");
   }
@@ -64,18 +64,15 @@ export async function deletarAnunciado(id) {
 export async function exibirAnunciados() {
   const anunciados = await getAnunciados();
 
-  let template = document.querySelector(".template-produtos");
+  let template = document.querySelector(".template-produto");
 
-  template.replaceChildren();
 
   anunciados.forEach((item) => {
-    const cardAnunciado = ` <div class="template-produto" data-id = ${item.id}>
-                <div class="card-produto">
-                    <img src="https://placehold.co/600x400" alt="imagem do produto" class="img-card">
-                    <p>Produto:</p>
-                    <p>Tipo:</p>
-                    <p>Preço:</p>
-                    <p>Estado de Uso:</p>
+    const cardAnunciado = `<div class="card-produto" data-id = ${item.id}>
+                    <img src=" ${item.imagemUrl}" alt="imagem do produto" class="img-card">
+                    <p>Produto: ${item.nome}</p>
+                    <p>descrição: ${item.descricao}</p>
+                    <p>Preço: ${item.preco}</p>
 
                     <div class="layout-botoes">
                         <button class="style-button">Editar Anunciado</button>
@@ -88,4 +85,5 @@ export async function exibirAnunciados() {
     template.innerHTML += cardAnunciado;
   });
 }
+
 
