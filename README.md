@@ -32,7 +32,7 @@ Criar uma experiência simples e responsiva para que usuários possam visualizar
 ## Deploy
 - Repositório GitHub: https://github.com/gabriel-candido-silva/Marketplace-Eletronicos-Usados
 
-- GitHub Pages: https://gabriel-candido-silva.github.io/FATEC-atividades-Programa-o-de-S-tios-Internet-1-2026/
+- GitHub Pages: https://gabriel-candido-silva.github.io/Marketplace-Eletronicos-Usados/
 
 - API utilizada: https://base-back-dwpz.onrender.com
 
