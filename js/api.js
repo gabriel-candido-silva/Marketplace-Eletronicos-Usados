@@ -35,10 +35,13 @@ export async function criarAnunciado(anuncio) {
 }
 
 export async function atualizarAnunciado(id, anuncio) {
+  const token = localStorage.getItem("token");
+
   const options = {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
     },
     body: JSON.stringify(anuncio),
   };
@@ -53,8 +56,13 @@ export async function atualizarAnunciado(id, anuncio) {
 }
 
 export async function deletarAnunciado(id) {
+  const token = localStorage.getItem("token");
+
   const options = {
     method: "DELETE",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
   };
 
   const response = await fetch(`${BASE_URL}/produtos/${id}`, options);
@@ -80,8 +88,8 @@ export async function exibirAnunciadosAdmin() {
                     <p>Preço: ${item.preco}</p>
 
                     <div class="layout-botoes">
-                        <button class="style-button">Editar Anunciado</button>
-                        <button class="style-button">Excluir Anunciado</button>
+                        <button class="style-button btn-editar">Editar Anunciado</button>
+                        <button class="btn-delete">Excluir Anunciado</button>
                     </div>
 
                 </div>
@@ -115,105 +123,152 @@ export async function exibirAnunciadosCliente() {
   });
 }
 
-export function abrirLoginDoPainel() {
-  const linkAdmin = document.querySelector("#button-admin");
-
-  if (linkAdmin) {
-    linkAdmin.addEventListener("click", (event) => {
-      event.preventDefault();
-      window.location.href = "login.html";
-    });
-  }
-}
-
-export function autenticarAdmin() {
-  const formLogin = document.querySelector("#formLogin");
-
-  if (!formLogin) {
-    return;
-  }
-
-  formLogin.addEventListener("submit", async (event) => {
-    event.preventDefault();
-
-    const formData = new FormData(formLogin);
-    const email = formData.get("email");
-    const senha = formData.get("senha");
-
-    try {
-      const response = await fetch(`${BASE_URL}/entrar`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email, senha }),
-      });
-
-      if (!response.ok) {
-        throw new Error("Credenciais inválidas");
-      }
-
-      const dados = await response.json();
-      localStorage.setItem("token", dados.accessToken);
-      localStorage.setItem("usuario", JSON.stringify(dados.user));
-      window.location.href = "admin.html";
-    } catch (error) {
-      console.error("Erro ao autenticar admin:", error);
-      alert("Falha no login. Verifique se os dados estão corretos.");
-    }
-  });
-}
-
 export function registrarAnuncio() {
   const form = document.querySelector("#formAnuncio");
 
-  if (form) {
-    form.addEventListener("submit", async (event) => {
-      event.preventDefault();
+  if (!form) {
+    return;
+  }
 
-      const formData = new FormData(form);
-      const rawData = Object.fromEntries(formData);
+  let produtoEmEdicaoId = null;
+  const submitButton = document.getElementById("submit-button");
 
-      const input = document.getElementById("preview-input");
-      let fotoUrl = document.getElementById("preview-image").src;
+  form.addEventListener("submit", async (event) => {
+    event.preventDefault();
 
-      // Bloco if para envio ao Cloudinary
-      if (input && input.files && input.files[0]) {
-        try {
-          fotoUrl = await uploadParaCloudinary(input.files[0]);
-          console.log("Upload automático concluído:", fotoUrl);
-        } catch (error) {
-          console.error("Erro no upload automático:", error);
-          alert("Não foi possível enviar a foto para a nuvem.");
-        }
+    const formData = new FormData(form);
+    const rawData = Object.fromEntries(formData);
+
+    const input = document.getElementById("preview-input");
+    let fotoUrl = document.getElementById("preview-image").src;
+
+    if (input && input.files && input.files[0]) {
+      try {
+        fotoUrl = await uploadParaCloudinary(input.files[0]);
+        console.log("Upload automático concluído:", fotoUrl);
+      } catch (error) {
+        console.error("Erro no upload automático:", error);
+        alert("Não foi possível enviar a foto para a nuvem.");
+      }
+    }
+
+    const anuncio = {
+      nome: rawData.nome,
+      slug: rawData.slug,
+      descricao: rawData.descricao,
+      preco: rawData.preco,
+      precoAntigo: rawData.preco,
+      categoriaId: 1,
+      imagemUrl: fotoUrl,
+      galeria: [fotoUrl],
+      estoque: 1,
+      ativo: true,
+      emDestaque: true,
+      ordemDestaque: 1,
+      criadoEm: new Date().toISOString(),
+      atualizadoEm: new Date().toISOString(),
+    };
+
+    try {
+      if (produtoEmEdicaoId) {
+        await atualizarAnunciado(produtoEmEdicaoId, anuncio);
+        alert("Anúncio atualizado com sucesso!");
+        window.location.reload();
+      } else {
+        await criarAnunciado(anuncio);
+        alert("Anúncio salvo com sucesso!");
+        window.location.reload();
       }
 
-      const anuncio = {
-        nome: rawData.nome,
-        slug: rawData.slug,
-        descricao: rawData.descricao,
-        preco: rawData.preco,
-        precoAntigo: rawData.preco,
-        categoriaId: 1,
-        imagemUrl: fotoUrl,
-        galeria: [fotoUrl],
-        estoque: 1,
-        ativo: true,
-        emDestaque: true,
-        ordemDestaque: 1,
-        criadoEm: new Date().toISOString(),
-        atualizadoEm: new Date().toISOString(),
-      };
+      form.reset();
+      document.getElementById("preview-image").src = "img/upload-icon (1).svg";
+      produtoEmEdicaoId = null;
+      if (submitButton) {
+        submitButton.textContent = "Publicar anúncio";
+      }
+    } catch (error) {
+      console.error("Erro ao salvar anúncio:", error);
+      alert("Não foi possível salvar o anúncio.");
+    }
+  });
+
+  const template = document.querySelector(".template-produto");
+
+  if (template) {
+    template.addEventListener("click", async (event) => {
+      if (!event.target.classList.contains("btn-editar")) {
+        return;
+      }
+
+      const card = event.target.closest(".card-produto");
+      const id = card?.dataset.id;
+
+      if (!id) {
+        return;
+      }
 
       try {
-        await criarAnunciado(anuncio);
-        alert("Anuncio salvo com sucesso!");
-        form.reset();
+        const response = await fetch(`${BASE_URL}/produtos/${id}`);
+        if (!response.ok) {
+          throw new Error("Erro ao buscar anúncio");
+        }
+
+        const item = await response.json();
+        produtoEmEdicaoId = item.id;
+
+        form.nome.value = item.nome || "";
+        form.slug.value = item.slug || "";
+        form.descricao.value = item.descricao || "";
+        form.preco.value = item.preco || "";
+
+        if (item.imagemUrl) {
+          document.getElementById("preview-image").src = item.imagemUrl;
+        }
+
+        if (submitButton) {
+          submitButton.textContent = "Atualizar anúncio";
+        }
+
+        window.scrollTo({ top: 0, behavior: "smooth" });
       } catch (error) {
-        console.error("Erro ao postar anuncio:", error);
-        alert("Não foi possível postar o anuncio.");
+        console.error("Erro ao carregar anúncio para edição:", error);
+        alert("Não foi possível carregar o anúncio para edição.");
       }
     });
   }
+}
+
+export function excluirAnuncio() {
+  const template = document.querySelector(".template-produto");
+
+  if (!template) {
+    return;
+  }
+
+  template.addEventListener("click", async (event) => {
+    if (!event.target.classList.contains("btn-delete")) {
+      return;
+    }
+
+    const card = event.target.closest(".card-produto");
+    const id = card?.dataset.id;
+
+    if (!id) {
+      return;
+    }
+
+    if (!confirm("Tem certeza que deseja deletar este anúncio?")) {
+      return;
+    }
+
+    try {
+      await deletarAnunciado(id);
+      alert("O anúncio foi deletado com sucesso!");
+      location.reload();
+    } catch (error) {
+      console.error("Erro ao deletar anúncio:", error);
+      alert("Não foi possível deletar o anúncio.");
+    }
+  });
 }
 

@@ -192,6 +192,23 @@ h1 {
     transform: scale(1.1);
 }
 
+.btn-delete {
+    border-radius: 10px;
+    border: none;
+    background: #2563eb;
+    color: white;
+    padding: 5px;
+    cursor: pointer;
+    font-weight: 700;
+    width: 150px;
+    height: 45px;
+    transition: transform .2s;
+}
+
+.btn-delete:hover {
+    transform: scale(1.1);
+}
+
 .template-produto-cliente {
    display: flex;
    flex-wrap: wrap;
