@@ -35,7 +35,7 @@ Criar uma experiência simples e responsiva para que usuários possam visualizar
 - API utilizada: https://base-back-dwpz.onrender.com
 
 ## Vídeo pitch
-- Link do vídeo pitch: 
+- Link do vídeo pitch: https://youtu.be/cVWnmLzQwTc
 
 ## Estrutura básica do projeto
 ```text
