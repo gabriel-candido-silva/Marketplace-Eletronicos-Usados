@@ -74,6 +74,11 @@ h1 {
 h2 {
     text-align: center;
     margin-bottom: 20px;
+    display: flex;
+    gap: 30px;
+    background: white;
+    padding: 2rem;
+    border-radius: 16px;
 }
 
 .produtos-anunciados {
@@ -128,4 +133,55 @@ h2 {
 
 .style-button:hover {
     transform: scale(1.1);
+}
+
+.template-produto-cliente {
+   display: flex;
+   flex-wrap: wrap;
+   gap: 20px;
+   width: 100%;
+   justify-content: center;
+}
+
+header {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    margin-top: 15px;
+}
+
+nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+}
+
+ul {
+    display: flex;
+    gap: 30px;
+    background: white;
+    padding: 2rem;
+    border-radius: 16px;
+}
+
+li {
+    text-decoration: none;
+    list-style-type: none;
+    background-color: #eff6ff;
+    border-radius: 10px;
+    padding: 20px;
+    transition: transform .2s;
+}
+
+li:hover {
+     box-shadow: 0 10px 30px rgba(62, 119, 241, 0.08);
+     transform: scale(1.1);
+}
+
+a {
+    text-decoration: none;
+    color: #2563eb;
+    font-family: Arial, Helvetica, sans-serif;
 }

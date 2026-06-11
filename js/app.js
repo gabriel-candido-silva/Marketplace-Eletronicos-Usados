@@ -1,4 +1,5 @@
-import { exibirAnunciados } from "./api.js";
+import { exibirAnunciadosAdmin, exibirAnunciadosCliente } from "./api.js";
 
-console.log(exibirAnunciados())
+exibirAnunciadosAdmin();
+exibirAnunciadosCliente();
 

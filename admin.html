@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marketplace de Eletrônicos Usados</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/app.js" defer type="module"></script>
+</head>
+<body>
+    <main id="app">
+        <!--os elementos serão gerados aqui dinamicamente pelo javascript--->
+        <div class="container-form">
+            <h1>Anuncie aqui o seu produto usado</h1>
+            <form id="formAnuncio" class="formulario" action="POST">
+                <label class="campo">
+                    <span>Imagem do Produto</span>
+                    <input type="url" name="imagem" placeholder="https://..." required>
+                </label>
+                <label class="campo">
+                    <span>Nome do Produto</span>
+                    <input type="text" name="nome" placeholder="Ex.: iPhone 11" required>
+                </label>
+
+                <label class="campo">
+                    <span>Tipo do Produto</span>
+                    <input type="text" name="tipo" placeholder="Ex.: Smartphone" required>
+                </label>
+
+                <label class="campo">
+                    <span>Preço do Anúncio</span>
+                    <input type="number" name="preco" step="0.01" min="0" placeholder="Ex.: 899.90" required>
+                </label>
+
+
+                <label class="campo">
+                    <span>Estado de Uso</span>
+                    <select name="estado" required>
+                        <option value="">Selecione</option>
+                        <option value="Novo">Novo</option>
+                        <option value="Seminovo">Seminovo</option>
+                        <option value="Usado">Usado</option>
+                        <option value="Com defeitos">Com defeitos</option>
+                    </select>
+                </label>
+
+                <div id="container-button">
+                    <button type="submit" class="botao-submit">Publicar anúncio</button>
+                </div>
+            </form>
+        </div>
+        <div class="produtos-anunciados">
+
+            <h2>Seus Produtos Anunciados:</h2>
+
+            <div class="template-produto">
+ <!---os cards dos produtos serão exibidos aqui dinamicamente pelo javascript-->
+                </div>
+            </div>
+    </main>
+</body>
+</html>

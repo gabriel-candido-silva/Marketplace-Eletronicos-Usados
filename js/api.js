@@ -61,7 +61,7 @@ export async function deletarAnunciado(id) {
   return true;
 }
 
-export async function exibirAnunciados() {
+export async function exibirAnunciadosAdmin() {
   const anunciados = await getAnunciados();
 
   let template = document.querySelector(".template-produto");
@@ -77,6 +77,30 @@ export async function exibirAnunciados() {
                     <div class="layout-botoes">
                         <button class="style-button">Editar Anunciado</button>
                         <button class="style-button">Excluir Anunciado</button>
+                    </div>
+
+                </div>
+            </div>`;
+
+    template.innerHTML += cardAnunciado;
+  });
+}
+
+export async function exibirAnunciadosCliente() {
+  const anunciados = await getAnunciados();
+
+  let template = document.querySelector(".template-produto-cliente");
+
+
+  anunciados.forEach((item) => {
+    const cardAnunciado = `<div class="card-produto" data-id = ${item.id}>
+                    <img src=" ${item.imagemUrl}" alt="imagem do produto" class="img-card">
+                    <p>Produto: ${item.nome}</p>
+                    <p>descrição: ${item.descricao}</p>
+                    <p>Preço: ${item.preco}</p>
+
+                    <div class="layout-botoes">
+                        <button class="style-button">Comprar ${item.nome}</button>
                     </div>
 
                 </div>
