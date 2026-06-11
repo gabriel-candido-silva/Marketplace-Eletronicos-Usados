@@ -1,5 +1,16 @@
-import { exibirAnunciadosAdmin, exibirAnunciadosCliente } from "./api.js";
+import { exibirAnunciadosAdmin, exibirAnunciadosCliente, registrarAnuncio, abrirLoginDoPainel, autenticarAdmin } from "./api.js";
 
-exibirAnunciadosAdmin();
-exibirAnunciadosCliente();
+const temTemplateAdmin = document.querySelector(".template-produto");
+const temTemplateCliente = document.querySelector(".template-produto-cliente");
 
+abrirLoginDoPainel();
+autenticarAdmin();
+
+if (temTemplateAdmin) {
+  exibirAnunciadosAdmin();
+  registrarAnuncio();
+}
+
+if (temTemplateCliente) {
+  exibirAnunciadosCliente();
+}
