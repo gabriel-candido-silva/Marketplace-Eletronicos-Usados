@@ -30,6 +30,8 @@ Criar uma experiência simples e responsiva para que usuários possam visualizar
 4. Para o painel administrativo, acesse a página de login através do botão "Painel Administrador".
 
 ## Deploy
+- Repositório GitHub: https://github.com/gabriel-candido-silva/Marketplace-Eletronicos-Usados
+
 - GitHub Pages: https://gabriel-candido-silva.github.io/FATEC-atividades-Programa-o-de-S-tios-Internet-1-2026/
 
 - API utilizada: https://base-back-dwpz.onrender.com
